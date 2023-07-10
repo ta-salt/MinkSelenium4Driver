@@ -28,58 +28,63 @@ use WebDriver\Window;
  *
  * @author Pete Otaqui <pete@otaqui.com>
  */
-class Selenium2Driver extends CoreDriver
+class Selenium4Driver extends CoreDriver
 {
     /**
      * Whether the browser has been started
      * @var bool
      */
-    private $started = false;
+    private bool $started = false;
 
     /**
      * The WebDriver instance
      * @var WebDriver
      */
-    private $webDriver;
+    private WebDriver $webDriver;
 
     /**
      * @var string
      */
-    private $browserName;
+    private string $browserName;
 
     /**
      * @var array
      */
-    private $desiredCapabilities;
+    private array $firstMatch = array();
+
+    /**
+     * @var array
+     */
+    private array $alwaysMatch = array();
 
     /**
      * The WebDriverSession instance
      * @var Session|null
      */
-    private $wdSession;
+    private Session $wdSession;
 
     /**
      * The timeout configuration
      * @var array{script?: int, implicit?: int, page?: int}
      */
-    private $timeouts = array();
+    private array $timeouts = array();
 
     /**
      * @var Escaper
      */
-    private $xpathEscaper;
+    private Escaper $xpathEscaper;
 
     /**
      * Instantiates the driver.
      *
      * @param string     $browserName         Browser name
-     * @param array|null $desiredCapabilities The desired capabilities
+     * @param array|null $capabilities The desired capabilities
      * @param string     $wdHost              The WebDriver host
      */
-    public function __construct(string $browserName = 'firefox', ?array $desiredCapabilities = null, string $wdHost = 'http://localhost:4444/wd/hub')
+    public function __construct(string $browserName = 'firefox', ?array $capabilities = null, string $wdHost = 'http://localhost:4444/wd/hub')
     {
         $this->setBrowserName($browserName);
-        $this->setDesiredCapabilities($desiredCapabilities);
+        $this->setCapabilities($capabilities);
         $this->setWebDriver(new WebDriver($wdHost));
         $this->xpathEscaper = new Escaper();
     }
@@ -108,69 +113,38 @@ class Selenium2Driver extends CoreDriver
      *
      * @throws DriverException
      */
-    public function setDesiredCapabilities(?array $desiredCapabilities = null)
+    public function setCapabilities(?array $capabilities = null)
     {
         if ($this->started) {
-            throw new DriverException("Unable to set desiredCapabilities, the session has already started");
+            throw new DriverException("Unable to set capabilities, the session has already started");
         }
 
-        if (null === $desiredCapabilities) {
-            $desiredCapabilities = array();
+        if ($capabilities === null) {
+            return;
         }
 
-        // Join $desiredCapabilities with defaultCapabilities
-        $desiredCapabilities = array_replace(self::getDefaultCapabilities(), $desiredCapabilities);
-
-        if (isset($desiredCapabilities['firefox'])) {
-            foreach ($desiredCapabilities['firefox'] as $capability => $value) {
-                switch ($capability) {
-                    case 'profile':
-                        $fileContents = file_get_contents($value);
-
-                        if ($fileContents === false) {
-                            throw new DriverException(sprintf('Could not read the profile file "%s".', $value));
-                        }
-
-                        $desiredCapabilities['firefox_'.$capability] = base64_encode($fileContents);
-                        break;
-                    default:
-                        $desiredCapabilities['firefox_'.$capability] = $value;
-                }
-            }
-
-            unset($desiredCapabilities['firefox']);
-        }
-
-        // See https://sites.google.com/a/chromium.org/chromedriver/capabilities
-        if (isset($desiredCapabilities['chrome'])) {
-
-            $chromeOptions = (isset($desiredCapabilities['goog:chromeOptions']) && is_array($desiredCapabilities['goog:chromeOptions']))? $desiredCapabilities['goog:chromeOptions']:array();
-
-            foreach ($desiredCapabilities['chrome'] as $capability => $value) {
-                if ($capability == 'switches') {
-                    $chromeOptions['args'] = $value;
-                } else {
-                    $chromeOptions[$capability] = $value;
-                }
-                $desiredCapabilities['chrome.'.$capability] = $value;
-            }
-
-            $desiredCapabilities['goog:chromeOptions'] = $chromeOptions;
-
-            unset($desiredCapabilities['chrome']);
-        }
-
-        $this->desiredCapabilities = $desiredCapabilities;
+        $this->firstMatch = (isset($capabilities['capabilities']['firstMatch']))? $capabilities['capabilities']['firstMatch'] : [];
+        $this->alwaysMatch = (isset($capabilities['capabilities']['alwaysMatch']))? $capabilities['capabilities']['alwaysMatch'] : [];
     }
 
     /**
-     * Gets the desiredCapabilities
+     * Gets the firstMatch
      *
      * @return array
      */
-    public function getDesiredCapabilities()
+    public function getfirstMatch()
     {
-        return $this->desiredCapabilities;
+        return $this->firstMatch;
+    }
+
+    /**
+     * Gets the alwaysMatch
+     *
+     * @return array
+     */
+    public function getalwaysMatch()
+    {
+        return $this->alwaysMatch;
     }
 
     /**
@@ -209,7 +183,7 @@ class Selenium2Driver extends CoreDriver
     public static function getDefaultCapabilities()
     {
         return array(
-            'browserName'       => 'firefox',
+            'browser'           => 'firefox',
             'name'              => 'Behat Test',
         );
     }
@@ -220,7 +194,7 @@ class Selenium2Driver extends CoreDriver
      *
      *     $this->withSyn()->executeJsOnXpath($xpath, $script);
      *
-     * @return Selenium2Driver
+     * @return Selenium4Driver
      *
      * @throws DriverException
      */
@@ -332,7 +306,7 @@ class Selenium2Driver extends CoreDriver
     public function start()
     {
         try {
-            $this->wdSession = $this->webDriver->session($this->browserName, $this->desiredCapabilities);
+            $this->wdSession = $this->webDriver->session($this->browserName, $this->firstMatch, $this->alwaysMatch);
         } catch (\Exception $e) {
             throw new DriverException('Could not open connection: '.$e->getMessage(), 0, $e);
         }

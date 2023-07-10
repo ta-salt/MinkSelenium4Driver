@@ -1,10 +1,10 @@
 Mink Selenium2 (webdriver) Driver
 =================================
-[![Latest Stable Version](https://poser.pugx.org/behat/mink-selenium2-driver/v/stable.svg)](https://packagist.org/packages/behat/mink-selenium2-driver)
-[![Latest Unstable Version](https://poser.pugx.org/behat/mink-selenium2-driver/v/unstable.svg)](https://packagist.org/packages/behat/mink-selenium2-driver)
-[![Total Downloads](https://poser.pugx.org/behat/mink-selenium2-driver/downloads.svg)](https://packagist.org/packages/behat/mink-selenium2-driver)
+[![Latest Stable Version](https://poser.pugx.org/behat/mink-selenium4-driver/v/stable.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
+[![Latest Unstable Version](https://poser.pugx.org/behat/mink-selenium4-driver/v/unstable.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
+[![Total Downloads](https://poser.pugx.org/behat/mink-selenium4-driver/downloads.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
 [![CI](https://github.com/minkphp/MinkSelenium2Driver/actions/workflows/tests.yml/badge.svg)](https://github.com/minkphp/MinkSelenium2Driver/actions/workflows/tests.yml)
-[![License](https://poser.pugx.org/behat/mink-selenium2-driver/license.svg)](https://packagist.org/packages/behat/mink-selenium2-driver)
+[![License](https://poser.pugx.org/behat/mink-selenium4-driver/license.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
 [![codecov](https://codecov.io/gh/minkphp/MinkSelenium2Driver/branch/master/graph/badge.svg?token=x2Q2iM3XYz)](https://codecov.io/gh/minkphp/MinkSelenium2Driver)
 
 Usage Example
@@ -15,7 +15,7 @@ Usage Example
 
 use Behat\Mink\Mink,
     Behat\Mink\Session,
-    Behat\Mink\Driver\Selenium2Driver;
+    Behat\Mink\Driver\Selenium4Driver;
 
 use Selenium\Client as SeleniumClient;
 
@@ -23,10 +23,10 @@ $browser = 'firefox';
 $url = 'http://example.com';
 
 $mink = new Mink(array(
-    'selenium2' => new Session(new Selenium2Driver($browser, null, $url)),
+    'selenium4' => new Session(new Selenium4Driver($browser, null, $url)),
 ));
 
-$mink->getSession('selenium2')->getPage()->findLink('Chat')->click();
+$mink->getSession('selenium4')->getPage()->findLink('Chat')->click();
 ```
 
 Please refer to [MinkExtension-example](https://github.com/Behat/MinkExtension-example) for an executable example.
@@ -38,7 +38,7 @@ Installation
 {
     "require": {
         "behat/mink":                   "~1.5",
-        "behat/mink-selenium2-driver":  "~1.1"
+        "behat/mink-selenium4-driver":  "~1.1"
     }
 }
 ```
