@@ -2,7 +2,7 @@
 
 namespace Behat\Mink\Tests\Driver\Custom;
 
-use Behat\Mink\Driver\Selenium2Driver;
+use Behat\Mink\Driver\Selenium4Driver;
 use Behat\Mink\Tests\Driver\TestCase;
 
 class DesiredCapabilitiesTest extends TestCase
@@ -21,7 +21,7 @@ class DesiredCapabilitiesTest extends TestCase
             'selenium-version'  => '2.45.0'
         );
 
-        $driver = new Selenium2Driver('firefox', $caps);
+        $driver = new Selenium4Driver('firefox', $caps);
         $this->assertNotEmpty($driver->getDesiredCapabilities(), 'desiredCapabilities empty');
         $this->assertIsArray($driver->getDesiredCapabilities());
         $this->assertEquals($caps, $driver->getDesiredCapabilities());
@@ -43,7 +43,7 @@ class DesiredCapabilitiesTest extends TestCase
         $session = $this->getSession();
         $session->start();
         $driver = $session->getDriver();
-        \assert($driver instanceof Selenium2Driver);
+        \assert($driver instanceof Selenium4Driver);
 
         $this->expectException('\Behat\Mink\Exception\DriverException');
         $this->expectExceptionMessage('Unable to set desiredCapabilities, the session has already started');

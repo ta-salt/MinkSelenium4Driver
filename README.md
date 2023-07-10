@@ -1,11 +1,7 @@
-Mink Selenium2 (webdriver) Driver
+Mink Selenium4 (webdriver) Driver
 =================================
-[![Latest Stable Version](https://poser.pugx.org/behat/mink-selenium4-driver/v/stable.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
-[![Latest Unstable Version](https://poser.pugx.org/behat/mink-selenium4-driver/v/unstable.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
-[![Total Downloads](https://poser.pugx.org/behat/mink-selenium4-driver/downloads.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
-[![CI](https://github.com/minkphp/MinkSelenium2Driver/actions/workflows/tests.yml/badge.svg)](https://github.com/minkphp/MinkSelenium2Driver/actions/workflows/tests.yml)
-[![License](https://poser.pugx.org/behat/mink-selenium4-driver/license.svg)](https://packagist.org/packages/behat/mink-selenium4-driver)
-[![codecov](https://codecov.io/gh/minkphp/MinkSelenium2Driver/branch/master/graph/badge.svg?token=x2Q2iM3XYz)](https://codecov.io/gh/minkphp/MinkSelenium2Driver)
+
+This package is a fork of an existing package [MinkSelenium2Driver](https://github.com/minkphp/MinkSelenium2Driver)
 
 Usage Example
 -------------
@@ -38,7 +34,7 @@ Installation
 {
     "require": {
         "behat/mink":                   "~1.5",
-        "behat/mink-selenium4-driver":  "~1.1"
+        "behat/mink-selenium4-driver":  "~1.0"
     }
 }
 ```
@@ -82,3 +78,4 @@ Maintainers
 * Christophe Coevoet [stof](https://github.com/stof)
 * Pete Otaqui [pete-otaqui](https://github.com/pete-otaqui)
 * Alexander Obuhovich [aik099](https://github.com/aik099)
+* Shu Chen [shuch3n](https://github.com/shuch3n)

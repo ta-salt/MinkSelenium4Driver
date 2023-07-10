@@ -1,11 +1,11 @@
 {
-    "name": "behat/mink-selenium2-driver",
-    "description": "Selenium2 (WebDriver) driver for Mink framework",
+    "name": "behat/mink-selenium4-driver",
+    "description": "Selenium4 (WebDriver) driver for Mink framework",
     "keywords": ["selenium", "webdriver", "javascript", "ajax", "testing", "browser"],
     "homepage": "https://mink.behat.org/",
     "type": "mink-driver",
     "license": "MIT",
-
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Pete Otaqui",
@@ -16,6 +16,11 @@
             "name": "Konstantin Kudryashov",
             "email": "ever.zet@gmail.com",
             "homepage": "http://everzet.com"
+        },
+        {
+            "name": "Shu Chen",
+            "email": "shu@ediasoft.com",
+            "homepage": "https://ediasoft.com"
         }
     ],
     "require": {

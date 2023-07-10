@@ -2,7 +2,7 @@
 
 namespace Behat\Mink\Tests\Driver\Custom;
 
-use Behat\Mink\Driver\Selenium2Driver;
+use Behat\Mink\Driver\Selenium4Driver;
 use Behat\Mink\Tests\Driver\TestCase;
 
 class TimeoutTest extends TestCase
@@ -20,7 +20,7 @@ class TimeoutTest extends TestCase
         }
 
         $driver = $session->getDriver();
-        \assert($driver instanceof Selenium2Driver);
+        \assert($driver instanceof Selenium4Driver);
 
         // Reset the array of timeouts to avoid impacting other tests
         $driver->setTimeouts(array());
@@ -34,7 +34,7 @@ class TimeoutTest extends TestCase
         $session->start();
 
         $driver = $session->getDriver();
-        \assert($driver instanceof Selenium2Driver);
+        \assert($driver instanceof Selenium4Driver);
 
         $this->expectException('\Behat\Mink\Exception\DriverException');
         $driver->setTimeouts(array('invalid' => 0));
@@ -44,7 +44,7 @@ class TimeoutTest extends TestCase
     {
         $session = $this->getSession();
         $driver = $session->getDriver();
-        \assert($driver instanceof Selenium2Driver);
+        \assert($driver instanceof Selenium4Driver);
 
         $driver->setTimeouts(array('implicit' => 0));
 
@@ -60,7 +60,7 @@ class TimeoutTest extends TestCase
     {
         $session = $this->getSession();
         $driver = $session->getDriver();
-        \assert($driver instanceof Selenium2Driver);
+        \assert($driver instanceof Selenium4Driver);
 
         $driver->setTimeouts(array('implicit' => 5000));
 
