@@ -1,5 +1,5 @@
 {
-    "name": "ediasoft/mink-selenium4-driver",
+    "name": "ta-salt/mink-selenium4-driver",
     "description": "Selenium4 (WebDriver) driver for Mink framework",
     "keywords": ["selenium", "webdriver", "javascript", "ajax", "testing", "browser"],
     "homepage": "https://mink.behat.org/",
