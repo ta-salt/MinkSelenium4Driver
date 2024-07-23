@@ -774,7 +774,7 @@ JS;
           $remotePath = $path;
         }
 
-        $element->postValue(array('value' => array($remotePath)));
+        $element->postValue(array('text' => $remotePath));
     }
 
     public function isVisible(string $xpath)
