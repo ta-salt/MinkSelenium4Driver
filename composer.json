@@ -27,7 +27,7 @@
         "php": ">=7.2",
         "ext-json": "*",
         "behat/mink": "^1.11@dev",
-        "php-webdriver/webdriver": "^1.15"
+        "instaclick/php-webdriver": "dev-master"
     },
     "require-dev": {
         "mink/driver-testsuite": "dev-master",

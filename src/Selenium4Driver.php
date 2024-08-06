@@ -11,7 +11,6 @@
 namespace Behat\Mink\Driver;
 
 use Behat\Mink\Exception\DriverException;
-use Behat\Mink\KeyModifier;
 use Behat\Mink\Selector\Xpath\Escaper;
 use WebDriver\Element;
 use WebDriver\Exception\NoSuchElement;
