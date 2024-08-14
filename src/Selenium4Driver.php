@@ -573,7 +573,7 @@ JS;
             return $this->executeJsOnElement($element, $script);
         }
 
-        if ('textarea' === $elementType) {
+        if ('textarea' === $elementName) {
             $script = <<<JS
 const node = {{ELEMENT}};
 return node.value;
