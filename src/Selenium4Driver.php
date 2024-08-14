@@ -653,7 +653,11 @@ JS;
         $value = strval($value);
 
         if (in_array($elementName, array('input', 'textarea'))) {
-            $existingValueLength = strlen($element->attribute('value'));
+            $script = <<<JS
+const node = {{ELEMENT}};
+return node.value;
+JS;
+            $existingValueLength = strlen($this->executeJsOnElement($element, $script));
             $value = str_repeat(Key::BACKSPACE . Key::DELETE, $existingValueLength) . $value;
         }
 
