@@ -573,6 +573,15 @@ JS;
             return $this->executeJsOnElement($element, $script);
         }
 
+        if ('textarea' === $elementType) {
+            $script = <<<JS
+const node = {{ELEMENT}};
+return node.value;
+JS;
+
+            return $this->executeJsOnElement($element, $script);
+        }
+
         return $element->attribute('value');
     }
 
