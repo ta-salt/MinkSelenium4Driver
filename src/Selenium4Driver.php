@@ -573,7 +573,7 @@ JS;
             return $this->executeJsOnElement($element, $script);
         }
 
-        if ('textarea' === $elementName) {
+        if (in_array($elementName, []('textarea', 'select'))) {
             $script = <<<JS
 const node = {{ELEMENT}};
 return node.value;
