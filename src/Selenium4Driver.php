@@ -573,16 +573,12 @@ JS;
             return $this->executeJsOnElement($element, $script);
         }
 
-        if (in_array($elementName, array('textarea', 'select'))) {
-            $script = <<<JS
+        $script = <<<JS
 const node = {{ELEMENT}};
 return node.value;
 JS;
 
-            return $this->executeJsOnElement($element, $script);
-        }
-
-        return $element->attribute('value');
+        return $this->executeJsOnElement($element, $script);
     }
 
     public function setValue(string $xpath, $value)
