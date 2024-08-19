@@ -470,7 +470,7 @@ class Selenium4Driver extends CoreDriver
 
     public function getWindowName()
     {
-        return $this->getWebDriverSession()->window()->getWindowHandle();
+        return $this->getWebDriverSession()->getWindowHandle();
     }
 
     /**
