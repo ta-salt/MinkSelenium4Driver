@@ -761,7 +761,7 @@ JS;
 const node = {{ELEMENT}};
 const me = new MouseEvent('mouseenter', { bubbles: true, cancelable: false, view: window });
 const mo = new MouseEvent('mouseover', { bubbles: true, cancelable: false, view: window });
-const dc = new MouseEvent('doubleclick', { bubbles: true, cancelable: false, view: window });
+const dc = new MouseEvent('dblclick', { bubbles: true, cancelable: false, view: window });
 node.dispatchEvent(me);
 node.dispatchEvent(mo);
 node.dispatchEvent(dc);
