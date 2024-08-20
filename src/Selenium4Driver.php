@@ -757,9 +757,17 @@ JS;
 
     public function doubleClick(string $xpath)
     {
-        $this->click($xpath);
-        usleep(100000);
-        $this->click($xpath);
+        $script = <<<JS
+const node = {{ELEMENT}};
+const me = new MouseEvent('mouseenter', { bubbles: true, cancelable: false, view: window });
+const mo = new MouseEvent('mouseover', { bubbles: true, cancelable: false, view: window });
+const dc = new MouseEvent('doubleclick', { bubbles: true, cancelable: false, view: window });
+node.dispatchEvent(me);
+node.dispatchEvent(mo);
+node.dispatchEvent(dc);
+JS;
+
+        $this->executeJsOnElement($this->findElement($xpath), $script);
     }
 
     public function rightClick(string $xpath)
