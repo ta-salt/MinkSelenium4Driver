@@ -792,9 +792,15 @@ JS;
 
     public function mouseOver(string $xpath)
     {
-        $this->getWebDriverSession()->moveto(array(
-            'element' => $this->findElement($xpath)->getID()
-        ));
+        try {
+            $this->getWebDriverSession()->moveto(array(
+                'element' => $this->findElement($xpath)->getID()
+            ));
+        } catch (UnknownCommand $e) {
+            // If the Webdriver implementation does not support moveto (which is not part of the W3C WebDriver spec), proceed
+        } catch (UnknownError $e) {
+            // Chromium driver sends back UnknownError (WebDriver\Exception with code 13)
+        }
     }
 
     public function focus(string $xpath)
