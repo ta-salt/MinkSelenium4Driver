@@ -757,8 +757,9 @@ JS;
 
     public function doubleClick(string $xpath)
     {
-        $this->mouseOver($xpath);
-        $this->getWebDriverSession()->doubleclick();
+        $this->click($xpath);
+        usleep(100000);
+        $this->click($xpath);
     }
 
     public function rightClick(string $xpath)
