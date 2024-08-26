@@ -630,16 +630,6 @@ JS;
 
                 return;
             }
-
-            if ('file' === $elementType) {
-                if (!\is_string($value)) {
-                    throw new DriverException('Only string values can be used for a file input.');
-                }
-
-                $element->postValue(array('text' => strval($value)));
-
-                return;
-            }
         }
 
         if (!\is_string($value)) {
