@@ -726,6 +726,16 @@ JS;
         return $this->findElement($xpath)->selected();
     }
 
+    private function ensureInView(Element $element)
+    {
+        $script = <<<JS
+const node = {{ELEMENT}};
+node.scrollIntoView({ behavior: 'instant', block: 'center' });
+JS;
+
+        $this->executeJsOnElement($element, $script);
+    }
+
     public function click(string $xpath)
     {
         $this->clickOnElement($this->findElement($xpath));
@@ -738,8 +748,10 @@ JS;
             $this->getWebDriverSession()->moveto(array('element' => $element->getID()));
         } catch (UnknownCommand $e) {
             // If the Webdriver implementation does not support moveto (which is not part of the W3C WebDriver spec), proceed to the click
+            $this->ensureInView($element);
         } catch (UnknownError $e) {
             // Chromium driver sends back UnknownError (WebDriver\Exception with code 13)
+            $this->ensureInView($element);
         }
 
         $element->click();
@@ -797,8 +809,10 @@ JS;
             ));
         } catch (UnknownCommand $e) {
             // If the Webdriver implementation does not support moveto (which is not part of the W3C WebDriver spec), proceed
+            $this->ensureInView($this->findElement($xpath));
         } catch (UnknownError $e) {
             // Chromium driver sends back UnknownError (WebDriver\Exception with code 13)
+            $this->ensureInView($this->findElement($xpath));
         }
     }
 
