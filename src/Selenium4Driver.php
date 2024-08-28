@@ -730,7 +730,7 @@ JS;
     {
         $script = <<<JS
 const node = {{ELEMENT}};
-node.scrollIntoView({ behavior: 'instant', block: 'center' });
+node.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
 JS;
 
         $this->executeJsOnElement($element, $script);
